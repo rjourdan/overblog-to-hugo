@@ -28,12 +28,18 @@ def write_post(post,output_folder):
     # convert HMTL content in Markdown
     md_content = md(html_content)
 
-    #from the slug, we are going to create the filename
+    #from the slug, we are going to create the folder
     slug_split = slug.split('/')
-    filename = slug_split[-1]
-    #remove html and add md
-    filename = filename[0:-4]
-    filename = output_folder+'/'+filename +'md' 
+    foldername = slug_split[-1]
+    #remove html
+    foldername = foldername[0:-5]
+    #check if output_folder has a / at the end
+    if(output_folder[-1]=='/'):
+        output_folder = output_folder[0:-1]
+    #create the folder
+    os.mkdir(output_folder+'/'+foldername)
+
+    filename = output_folder+'/'+foldername +'/index.md' 
     
     f = open(filename, "w")
     f.write('---\n')
